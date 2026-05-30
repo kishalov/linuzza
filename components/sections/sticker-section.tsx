@@ -16,15 +16,8 @@ function StickerSetModal({
 	href: string
 	stickers: string[]
 }) {
-	const { openModal, closeModal } = useModal()
-
-	function openSticker(sticker: string) {
-		openModal(
-			<div className="relative h-[80dvh] w-[80vw]">
-				<Image src={sticker} alt={title} fill className="object-contain" sizes="80vw" unoptimized />
-			</div>
-		)
-	}
+	const { closeModal } = useModal()
+	const [openedSticker, setOpenedSticker] = useState<string | null>(null)
 
 	return (
 		<div className="relative flex h-[80dvh] w-[min(92vw,760px)] flex-col overflow-hidden border-2 border-[#3D3936] bg-[#F3F3F3] p-6 before:pointer-events-none before:absolute before:inset-0 before:bg-[url('https://www.ui-layouts.com/noise.gif')] before:opacity-[0.03] before:content-['']">
@@ -33,26 +26,50 @@ function StickerSetModal({
 
 				<div className="grid flex-1 auto-rows-min grid-cols-4 gap-4 overflow-y-auto pr-2 sm:grid-cols-5 md:grid-cols-6">
 					{stickers.map((sticker) => (
-						<button key={sticker} type="button" onClick={() => openSticker(sticker)} className="relative aspect-square">
+						<button
+							key={sticker}
+							type="button"
+							onClick={() => setOpenedSticker(sticker)}
+							className="relative aspect-square cursor-pointer"
+						>
 							<Image src={sticker} alt={title} fill className="object-contain" sizes="120px" unoptimized />
 						</button>
 					))}
 				</div>
 
 				<div className="mt-6 flex items-center justify-end gap-6">
-					<button type="button" onClick={closeModal} className="inline-flex items-center text-sm font-medium cursor-pointer">
+					<button type="button" onClick={closeModal} className="inline-flex cursor-pointer items-center text-sm font-medium">
 						Закрыть
 					</button>
 
-					<a href={href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center text-sm font-medium cursor-pointer">
+					<a href={href} target="_blank" rel="noopener noreferrer" className="inline-flex cursor-pointer items-center text-sm font-medium">
 						Добавить набор
 					</a>
 				</div>
 			</div>
+
+			{openedSticker ? (
+				<div
+					className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/80 p-8"
+					onClick={() => setOpenedSticker(null)}
+				>
+					<button
+						type="button"
+						onClick={() => setOpenedSticker(null)}
+						className="absolute right-6 top-6 z-10 text-4xl leading-none text-white"
+						aria-label="Закрыть стикер"
+					>
+						×
+					</button>
+
+					<div className="relative h-[30dvh] w-[30vw]" onClick={(event) => event.stopPropagation()}>
+						<Image src={openedSticker} alt={title} fill className="object-contain" sizes="80vw" unoptimized />
+					</div>
+				</div>
+			) : null}
 		</div>
 	)
 }
-
 const stickerPositions = [
 	"col-start-1 row-start-1",
 	"col-start-2 row-start-1",
@@ -100,7 +117,7 @@ export function StickersSection() {
 				{activeSet.description}
 			</p>
 
-			<div className="col-start-4 row-start-1 flex items-start justify-end gap-3">
+			<div className="col-start-4 row-start-1 flex items-start justify-start gap-3">
 				<button type="button" onClick={goPrev} className="cursor-pointer flex size-10 items-center justify-center rounded-full border border-[var(--color-text)]">
 					←
 				</button>
@@ -120,24 +137,49 @@ export function StickersSection() {
 			exit={{ opacity: 0, x: -40 }}
 			transition={{ duration: 0.3 }}
 		>
-			{previewStickers.map((sticker, index) => (
-	<button
-		key={sticker}
-		type="button"
-		onClick={openStickerSet}
-		className={`relative ${stickerPositions[index]}`}
-		aria-label={`Открыть набор ${activeSet.title}`}
-	>
-		<Image
-			src={sticker}
-			alt={activeSet.title}
-			fill
-			className="object-contain"
-			sizes="25vw"
-			unoptimized
-		/>
-	</button>
-))}
+		{previewStickers.map((sticker, index) => {
+
+	return (
+		<motion.button
+			key={`${activeSetIndex}-${sticker}`}
+			type="button"
+			onClick={openStickerSet}
+			className={`relative cursor-pointer ${stickerPositions[index]}`}
+			initial={{
+				opacity: 0,
+				scale: 0.96,
+				
+			}}
+			animate={{
+				opacity: 1,
+				scale: 1,
+				
+			}}
+			transition={{
+				duration: 0.45,
+				delay: index * 0.035,
+				ease: [0.22, 1, 0.36, 1],
+			}}
+			whileHover={{
+				scale: 1.04,
+				
+			}}
+			whileTap={{
+				scale: 0.96,
+			}}
+			aria-label={`Открыть набор ${activeSet.title}`}
+		>
+			<Image
+				src={sticker}
+				alt={activeSet.title}
+				fill
+				className="object-contain"
+				sizes="25vw"
+				unoptimized
+			/>
+		</motion.button>
+	)
+})}
 		</motion.div>
 	</AnimatePresence>
 

@@ -47,7 +47,7 @@ export function ModalProvider({ children }: { children: ReactNode }) {
 			{content
 				? createPortal(
 						<div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/80 p-8" onClick={closeModal}>
-							<button className="absolute right-6 top-6 z-10 text-4xl leading-none text-white" type="button" onClick={closeModal} aria-label="Закрыть">×</button>
+							<button className="cursor-pointer absolute right-6 top-6 z-10 text-4xl leading-none text-white" type="button" onClick={closeModal} aria-label="Закрыть">×</button>
 
 							<div className="max-h-full max-w-full" onClick={(event) => event.stopPropagation()}>
 								{content}

@@ -1,9 +1,9 @@
 "use client"
 
 import Image from "next/image"
-import { useState } from "react"
-import { AnimatePresence, motion } from "framer-motion"
+import useEmblaCarousel from "embla-carousel-react"
 import { PosterGrid } from "@/components/poster-grid/poster-grid"
+import { useModal } from "@/components/modal/modal-provider"
 
 const banners = [
 	{ image: "/images/banner-1.png", alt: "Vogue banner" },
@@ -15,39 +15,77 @@ const banners = [
 ]
 
 export function BannersSection() {
-	const [activeIndex, setActiveIndex] = useState(0)
+	const { openModal } = useModal()
+	const [emblaRef, emblaApi] = useEmblaCarousel({
+		loop: true,
+		align: "start",
+		slidesToScroll: 1,
+	})
 
 	function goPrev() {
-		setActiveIndex((current) => current === 0 ? banners.length - 1 : current - 1)
+		emblaApi?.scrollPrev()
 	}
 
 	function goNext() {
-		setActiveIndex((current) => current === banners.length - 1 ? 0 : current + 1)
+		emblaApi?.scrollNext()
 	}
 
-	const visibleBanners = Array.from({ length: 4 }, (_, index) => banners[(activeIndex + index) % banners.length])
-
 	return (
-		<PosterGrid className="before:absolute before:top-0 before:left-0 before:w-full before:h-full before:content-[''] before:opacity-[0.05] before:z-10 before:pointer-events-none before:bg-[url('https://www.ui-layouts.com/noise.gif')]" id="banners" extraGuides={[{ type: "horizontal", position: "75%" }]}>
+		<PosterGrid className="before:pointer-events-none before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-full before:bg-[url('https://www.ui-layouts.com/noise.gif')] before:opacity-[0.05] before:content-['']" id="banners" extraGuides={[{ type: "horizontal", position: "75%" }]}>
 			<div className="relative col-span-4 row-span-3 overflow-hidden">
-				<button className="absolute left-0 top-1/2 z-30 flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--color-text)] bg-[var(--color-bg)] text-sm transition-transform duration-200 hover:scale-105 active:scale-95" type="button" onClick={goPrev} aria-label="Предыдущие баннеры">←</button>
+				<button className="cursor-pointer absolute left-0 top-1/2 z-30 flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--color-text)] bg-[var(--color-bg)] text-sm transition-transform duration-200 hover:scale-105 active:scale-95" type="button" onClick={goPrev} aria-label="Предыдущие баннеры">
+					←
+				</button>
 
-				<AnimatePresence mode="wait">
-					<motion.div key={activeIndex} className="absolute inset-0 grid grid-cols-4 gap-x-[var(--poster-gap-x)]" initial={{ x: 48 }} animate={{ x: 0 }} exit={{ x: -48 }} transition={{ duration: 0.45}}>
-						{visibleBanners.map((banner, index) => (
-							<div key={`${banner.image}-${index}`} className="relative h-full overflow-hidden">
-								<Image className="object-cover object-top" src={banner.image} alt={banner.alt} fill sizes="25vw" />
-							</div>
-						))}
-					</motion.div>
-				</AnimatePresence>
+<div ref={emblaRef} className="h-full overflow-hidden">
+	<div className="-mr-[var(--poster-gap-x)] flex h-full">
+		{banners.map((banner) => (
+	<div
+		key={banner.image}
+		className="relative h-full min-w-0 flex-[0_0_25%] pr-[var(--poster-gap-x)]"
+	>
+		<button
+			type="button"
+			className="relative h-full w-full overflow-hidden cursor-pointer"
+			onClick={() => {
+				openModal(
+					<img
+						src={banner.image}
+						alt={banner.alt}
+						className="max-h-[90dvh] max-w-[90vw] object-contain"
+					/>
+				)
+			}}
+		>
+			<Image
+				className="object-cover object-top"
+				src={banner.image}
+				alt={banner.alt}
+				fill
+				sizes="25vw"
+			/>
+		</button>
+	</div>
+))}
+	</div>
+</div>
 
-				<button className="absolute right-0 top-1/2 z-30 flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--color-text)] bg-[var(--color-bg)] text-sm transition-transform duration-200 hover:scale-105 active:scale-95" type="button" onClick={goNext} aria-label="Следующие баннеры">→</button>
+				<button className="cursor-pointer absolute right-0 top-1/2 z-30 flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--color-text)] bg-[var(--color-bg)] text-sm transition-transform duration-200 hover:scale-105 active:scale-95" type="button" onClick={goNext} aria-label="Следующие баннеры">
+					→
+				</button>
 			</div>
 
-			<p className="col-span-2 col-start-2 row-start-4 font-medium text-center self-center uppercase text-[1.27vw]">Для меня важно, чтобы дизайн не просто выглядел<br />красиво, а действительно работал: привлекал внимание,<br />вызывал интерес и помогал приводить клиентов.</p>
+			<p className="col-span-2 col-start-2 row-start-4 self-center text-center text-[1.27vw] font-medium uppercase">
+				Для меня важно, чтобы дизайн не просто выглядел
+				<br />
+				красиво, а действительно работал: привлекал внимание,
+				<br />
+				вызывал интерес и помогал приводить клиентов.
+			</p>
 
-			<h2 className="col-start-1 col-span-1 row-start-4 self-end text-[1vw] font-black uppercase">БАННЕРЫ</h2>
+			<h2 className="col-start-1 col-span-1 row-start-4 self-end text-[1vw] font-black uppercase">
+				БАННЕРЫ
+			</h2>
 		</PosterGrid>
 	)
 }

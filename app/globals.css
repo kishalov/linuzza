@@ -71,3 +71,22 @@ img {
 	background: var(--color-text);
 	color: var(--color-bg);
 }
+
+.case-modal-scroll .simplebar-track.simplebar-vertical {
+	width: 10px;
+	background: transparent;
+}
+
+.case-modal-scroll .simplebar-scrollbar::before {
+	left: 2px;
+	right: 2px;
+	top: 2px;
+	bottom: 2px;
+	background: #3D3936;
+	border-radius: 999px;
+	opacity: 1;
+}
+
+.case-modal-scroll .simplebar-scrollbar.simplebar-visible::before {
+	opacity: 1;
+}
