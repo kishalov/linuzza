@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import useEmblaCarousel from "embla-carousel-react"
+import { useRef } from "react"
 import { PosterGrid } from "@/components/poster-grid/poster-grid"
 import { useModal } from "@/components/modal/modal-provider"
 
@@ -16,18 +16,36 @@ const banners = [
 
 export function BannersSection() {
 	const { openModal } = useModal()
-	const [emblaRef, emblaApi] = useEmblaCarousel({
-		loop: true,
-		align: "start",
-		slidesToScroll: 1,
-	})
+	const carouselRef = useRef<HTMLDivElement>(null)
+
+	function scrollCarousel(direction: -1 | 1) {
+		const carousel = carouselRef.current
+
+		if (!carousel) return
+
+		const scrollDistance = carousel.clientWidth / 2
+		const maxScrollLeft = carousel.scrollWidth - carousel.clientWidth
+		const nextScrollLeft = carousel.scrollLeft + scrollDistance * direction
+
+		if (nextScrollLeft < 0) {
+			carousel.scrollTo({ left: maxScrollLeft, behavior: "smooth" })
+			return
+		}
+
+		if (nextScrollLeft > maxScrollLeft) {
+			carousel.scrollTo({ left: 0, behavior: "smooth" })
+			return
+		}
+
+		carousel.scrollTo({ left: nextScrollLeft, behavior: "smooth" })
+	}
 
 	function goPrev() {
-		emblaApi?.scrollPrev()
+		scrollCarousel(-1)
 	}
 
 	function goNext() {
-		emblaApi?.scrollNext()
+		scrollCarousel(1)
 	}
 
 	return (
@@ -37,7 +55,7 @@ export function BannersSection() {
 					←
 				</button>
 
-<div ref={emblaRef} className="h-full overflow-hidden">
+<div ref={carouselRef} className="h-full overflow-hidden scroll-smooth">
 	<div className="-mr-[var(--poster-gap-x)] flex h-full">
 		{banners.map((banner) => (
 	<div

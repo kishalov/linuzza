@@ -72,23 +72,24 @@ img {
 	color: var(--color-bg);
 }
 
-.case-modal-scroll .simplebar-track.simplebar-vertical {
+.case-modal-scroll {
+	scrollbar-color: #3D3936 transparent;
+	scrollbar-width: thin;
+}
+
+.case-modal-scroll::-webkit-scrollbar {
 	width: 10px;
+}
+
+.case-modal-scroll::-webkit-scrollbar-track {
 	background: transparent;
 }
 
-.case-modal-scroll .simplebar-scrollbar::before {
-	left: 2px;
-	right: 2px;
-	top: 2px;
-	bottom: 2px;
+.case-modal-scroll::-webkit-scrollbar-thumb {
+	border: 2px solid transparent;
 	background: #3D3936;
+	background-clip: content-box;
 	border-radius: 999px;
-	opacity: 1;
-}
-
-.case-modal-scroll .simplebar-scrollbar.simplebar-visible::before {
-	opacity: 1;
 }
 @media (max-width: 1024px) {
 	:root {

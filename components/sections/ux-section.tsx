@@ -5,8 +5,6 @@ import { useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { PosterGrid } from "@/components/poster-grid/poster-grid"
 import { useModal } from "@/components/modal/modal-provider"
-import SimpleBar from "simplebar-react"
-import "simplebar-react/dist/simplebar.min.css"
 
 const slides = [
 	{
@@ -47,7 +45,7 @@ function CaseModal({
 	images: string[]
 }) {
 	return (
-		<SimpleBar className="case-modal-scroll max-h-[90dvh] w-[min(90vw,1200px)]">
+		<div className="case-modal-scroll max-h-[90dvh] w-[min(90vw,1200px)] overflow-y-auto">
 			<div className="bg-[#F3F3F3]">
 				{images.map((image, index) => (
 					<img
@@ -58,7 +56,7 @@ function CaseModal({
 					/>
 				))}
 			</div>
-		</SimpleBar>
+		</div>
 	)
 }
 
