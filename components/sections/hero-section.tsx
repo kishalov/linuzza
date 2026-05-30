@@ -40,7 +40,7 @@ export function HeroSection() {
 	/>
 </div>
 
-			<p className="col-span-2 col-start-2 row-start-4 font-medium text-right uppercase self-end text-[2.2vw]">Минимализм, внимание к деталям<br />и дизайн, который работает</p>
+			<p className="col-span-2 col-start-2 row-start-4 font-medium text-right uppercase self-end text-[2vw]">Минимализм, внимание к деталям<br />и дизайн, который работает</p>
 		</PosterGrid>
 	)
 }
