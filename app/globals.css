@@ -90,3 +90,21 @@ img {
 .case-modal-scroll .simplebar-scrollbar.simplebar-visible::before {
 	opacity: 1;
 }
+@media (max-width: 1024px) {
+	:root {
+		--poster-margin: clamp(0.875rem, 3.5vw, 2rem);
+		--poster-gap-x: clamp(0.875rem, 3vw, 1.75rem);
+		--poster-gap-y: clamp(0.875rem, 3vw, 1.75rem);
+	}
+
+	.poster-grid {
+		--poster-columns: 2 !important;
+	}
+}
+
+@media (max-width: 1024px) {
+	.illustrations-gallery {
+		--gallery-columns: 2 !important;
+		--gallery-height: var(--gallery-height-tablet) !important;
+	}
+}

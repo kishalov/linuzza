@@ -86,9 +86,9 @@ export function UxSection() {
 
 	return (
 		<PosterGrid id="ui" extraGuides={[{ type: "horizontal", position: "50%" }]} className="before:pointer-events-none before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-full before:bg-[url('https://www.ui-layouts.com/noise.gif')] before:opacity-[0.05] before:content-['']">
-			<h2 className="col-span-1 col-start-2 font-black uppercase text-[8.1vw]">UX/UI</h2>
+			<h2 className="col-span-1 col-start-2 text-[8.1vw] font-black uppercase max-[1024px]:col-start-1 max-[1024px]:text-[14vw]">UX/UI</h2>
 
-			<div className="relative col-start-2 col-span-3 row-start-2 row-span-3 overflow-hidden">
+			<div className="relative col-start-2 col-span-3 row-start-2 row-span-3 overflow-hidden max-[1024px]:col-start-1 max-[1024px]:col-span-2 max-[1024px]:row-start-2 max-[1024px]:row-span-2">
 				<AnimatePresence mode="wait">
 					<motion.button
 						key={slide.image}
@@ -101,16 +101,16 @@ export function UxSection() {
 						transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
 						aria-label={`Открыть кейс ${slide.title}`}
 					>
-						<Image className="object-cover object-top" src={slide.image} alt={slide.alt} fill sizes="75vw" />
+						<Image className="object-cover object-top" src={slide.image} alt={slide.alt} fill sizes="(max-width: 1024px) 100vw, 75vw" />
 					</motion.button>
 				</AnimatePresence>
 			</div>
 
-<div className="col-start-1 col-span-1 row-start-3 row-span-2 ml-14 flex flex-col">
+<div className="col-start-1 col-span-1 row-start-3 row-span-2 ml-14 flex flex-col max-[1024px]:row-start-4 max-[1024px]:row-span-1 max-[1024px]:ml-0">
 	<AnimatePresence mode="wait">
 		<motion.p
 			key={slide.text}
-			className="m-0 text-right text-[0.8vw] font-normal uppercase"
+			className="m-0 text-right text-[0.8vw] font-normal uppercase max-[1024px]:text-left max-[1024px]:text-[clamp(0.75rem,1.6vw,0.95rem)]"
 			initial={{ opacity: 0, y: 12 }}
 			animate={{ opacity: 1, y: 0 }}
 			exit={{ opacity: 0, y: -12 }}
@@ -129,7 +129,7 @@ export function UxSection() {
 	</button>
 </div>
 
-			<div className="col-start-4 col-span-1 self-end flex gap-3">
+			<div className="col-start-4 col-span-1 flex self-end gap-3 max-[1024px]:col-start-2 max-[1024px]:row-start-4 max-[1024px]:justify-end">
 				<button className="cursor-pointer flex size-10 items-center justify-center rounded-full border border-[var(--color-text)] text-sm transition-transform duration-200 hover:scale-105 active:scale-95" type="button" onClick={goPrev} aria-label="Предыдущий слайд">←</button>
 				<button className="cursor-pointer flex size-10 items-center justify-center rounded-full border border-[var(--color-text)] text-sm transition-transform duration-200 hover:scale-105 active:scale-95" type="button" onClick={goNext} aria-label="Следующий слайд">→</button>
 			</div>

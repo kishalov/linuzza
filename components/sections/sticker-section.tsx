@@ -62,7 +62,7 @@ function StickerSetModal({
 						×
 					</button>
 
-					<div className="relative h-[30dvh] w-[30vw]" onClick={(event) => event.stopPropagation()}>
+					<div className="relative h-[30dvh] w-[30vw] max-[1024px]:w-[70vw]" onClick={(event) => event.stopPropagation()}>
 						<Image src={openedSticker} alt={title} fill className="object-contain" sizes="80vw" unoptimized />
 					</div>
 				</div>
@@ -73,11 +73,11 @@ function StickerSetModal({
 const stickerPositions = [
 	"col-start-1 row-start-1",
 	"col-start-2 row-start-1",
-	"col-start-3 row-start-1",
-	"col-start-4 row-start-1",
-	"col-start-1 row-start-2",
-	"col-start-2 row-start-2",
-	"col-start-3 row-start-2",
+	"col-start-3 row-start-1 max-[1024px]:col-start-1 max-[1024px]:row-start-2",
+	"col-start-4 row-start-1 max-[1024px]:col-start-2 max-[1024px]:row-start-2",
+	"col-start-1 row-start-2 max-[1024px]:row-start-3",
+	"col-start-2 row-start-2 max-[1024px]:row-start-3",
+	"col-start-3 row-start-2 max-[1024px]:col-start-1 max-[1024px]:row-start-4",
 ]
 export function StickersSection() {
 	const [activeSetIndex, setActiveSetIndex] = useState(0)
@@ -109,15 +109,15 @@ export function StickersSection() {
 			id="stickers"
 			className="before:absolute before:left-0 before:top-0 before:h-full before:w-full before:bg-[url('https://www.ui-layouts.com/noise.gif')] before:opacity-[0.05] before:content-['']"
 		>
-			<h2 className="col-span-2 row-start-1 self-end whitespace-nowrap text-[8.1vw] font-black uppercase">
+			<h2 className="col-span-2 row-start-1 self-end whitespace-nowrap text-[8.1vw] font-black uppercase max-[1024px]:text-[14vw]">
 				СТИКЕРЫ
 			</h2>
 
-			<p className="col-start-3 row-start-1 self-start text-left text-[1.27vw] font-medium uppercase">
+			<p className="col-start-3 row-start-1 self-start text-left text-[1.27vw] font-medium uppercase max-[1024px]:col-start-1 max-[1024px]:row-start-2 max-[1024px]:text-[clamp(0.8rem,1.8vw,1rem)]">
 				{activeSet.description}
 			</p>
 
-			<div className="col-start-4 row-start-1 flex items-start justify-start gap-3">
+			<div className="col-start-4 row-start-1 flex items-start justify-start gap-3 max-[1024px]:col-start-2 max-[1024px]:row-start-2 max-[1024px]:justify-end">
 				<button type="button" onClick={goPrev} className="cursor-pointer flex size-10 items-center justify-center rounded-full border border-[var(--color-text)]">
 					←
 				</button>
@@ -127,11 +127,11 @@ export function StickersSection() {
 				</button>
 			</div>
 
-<div className="relative col-span-4 row-start-2 row-span-3 overflow-hidden">
+<div className="relative col-span-4 row-start-2 row-span-3 overflow-hidden max-[1024px]:col-span-2 max-[1024px]:row-start-3 max-[1024px]:row-span-2">
 	<AnimatePresence mode="wait">
 		<motion.div
 			key={activeSetIndex}
-			className="absolute inset-0 grid grid-cols-4 grid-rows-2 gap-x-[var(--poster-gap-x)] gap-y-[var(--poster-gap-y)]"
+			className="absolute inset-0 grid grid-cols-4 grid-rows-2 gap-x-[var(--poster-gap-x)] gap-y-[var(--poster-gap-y)] max-[1024px]:grid-cols-2 max-[1024px]:grid-rows-4"
 			initial={{ opacity: 0, x: 40 }}
 			animate={{ opacity: 1, x: 0 }}
 			exit={{ opacity: 0, x: -40 }}
@@ -174,7 +174,7 @@ export function StickersSection() {
 				alt={activeSet.title}
 				fill
 				className="object-contain"
-				sizes="25vw"
+				sizes="(max-width: 1024px) 50vw, 25vw"
 				unoptimized
 			/>
 		</motion.button>
@@ -183,11 +183,11 @@ export function StickersSection() {
 		</motion.div>
 	</AnimatePresence>
 
-	<div className="absolute inset-0 grid grid-cols-4 grid-rows-2 gap-x-[var(--poster-gap-x)] gap-y-[var(--poster-gap-y)] pointer-events-none">
+	<div className="pointer-events-none absolute inset-0 grid grid-cols-4 grid-rows-2 gap-x-[var(--poster-gap-x)] gap-y-[var(--poster-gap-y)] max-[1024px]:grid-cols-2 max-[1024px]:grid-rows-4">
 		<button
 			type="button"
 			onClick={openStickerSet}
-			className="cursor-pointer pointer-events-auto col-start-4 row-start-2 flex items-center justify-center border border-[var(--color-text)] text-center font-black uppercase"
+			className="pointer-events-auto col-start-4 row-start-2 flex cursor-pointer items-center justify-center border border-[var(--color-text)] text-center font-black uppercase max-[1024px]:col-start-2 max-[1024px]:row-start-4"
 		>
 			посмотреть набор
 		</button>
