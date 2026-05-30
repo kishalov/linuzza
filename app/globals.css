@@ -10,7 +10,9 @@
 	--poster-margin: clamp(1rem, 3vw, 2.5rem);
 	--poster-gap-x: clamp(1rem, 2.5vw, 2.5rem);
 	--poster-gap-y: clamp(1rem, 2.5vw, 2.5rem);
-	--poster-guide-offset: 0.3rem;
+
+	--poster-guide-offset-x: calc(var(--poster-gap-x) / 2);
+	--poster-guide-offset-y: calc(var(--poster-gap-y) / 2);
 
 	--poster-guide-color: #DDDDDD;
 	--poster-cross-color: #000000;

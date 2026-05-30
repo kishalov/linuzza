@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import localFont from "next/font/local"
+import { ModalProvider } from "@/components/modal/modal-provider"
 import "./globals.css"
 
 const craftwork = localFont({
@@ -29,15 +30,11 @@ export const metadata: Metadata = {
 	description: "Graphic and web design portfolio.",
 }
 
-export default function RootLayout({
-	children,
-}: Readonly<{
-	children: React.ReactNode
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="ru">
 			<body className={craftwork.variable}>
-				{children}
+				<ModalProvider>{children}</ModalProvider>
 			</body>
 		</html>
 	)

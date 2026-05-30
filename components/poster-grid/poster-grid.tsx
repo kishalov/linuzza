@@ -23,41 +23,28 @@ export function PosterGrid({
 }: PosterGridProps) {
 	const Component = as
 
-	const cols = 4
-	const verticalLines = Array.from({ length: cols + 1 }, (_, index) => ({
-		key: `base-v-${index}`,
-		position: `calc(var(--guide-left) + var(--guide-width) / ${cols} * ${index})`,
-		isOuter: index === 0 || index === cols,
-	}))
-
-	const horizontalLines = [
-		{
-			key: "base-h-top",
-			position: "var(--guide-top)",
-		},
-		{
-			key: "base-h-bottom",
-			position: "calc(100% - var(--guide-top))",
-		},
+	const verticalLines = [
+		{ key: "outer-left", position: "var(--guide-left)", isOuter: true },
+		{ key: "gap-1", position: "calc(var(--grid-left) + var(--col-width) + var(--poster-gap-x) / 2)", isOuter: false },
+		{ key: "gap-2", position: "calc(var(--grid-left) + var(--col-width) * 2 + var(--poster-gap-x) * 1.5)", isOuter: false },
+		{ key: "gap-3", position: "calc(var(--grid-left) + var(--col-width) * 3 + var(--poster-gap-x) * 2.5)", isOuter: false },
+		{ key: "outer-right", position: "var(--guide-right)", isOuter: true },
 	]
 
-	const extraVerticalLines = extraGuides
-		.filter((guide) => guide.type === "vertical")
-		.map((guide, index) => ({
-			key: `extra-v-${index}`,
-			position: guide.position,
-			isOuter: false,
-		}))
+	const horizontalLines = [
+		{ key: "top", position: "var(--guide-top)" },
+		{ key: "bottom", position: "var(--guide-bottom)" },
+		...extraGuides
+			.filter((guide) => guide.type === "horizontal")
+			.map((guide, index) => ({ key: `extra-h-${index}`, position: guide.position })),
+	]
 
-	const extraHorizontalLines = extraGuides
-		.filter((guide) => guide.type === "horizontal")
-		.map((guide, index) => ({
-			key: `extra-h-${index}`,
-			position: guide.position,
-		}))
-
-	const allVerticalLines = [...verticalLines, ...extraVerticalLines]
-	const allHorizontalLines = [...horizontalLines, ...extraHorizontalLines]
+	const allVerticalLines = [
+		...verticalLines,
+		...extraGuides
+			.filter((guide) => guide.type === "vertical")
+			.map((guide, index) => ({ key: `extra-v-${index}`, position: guide.position, isOuter: false })),
+	]
 
 	return (
 		<Component
@@ -66,37 +53,38 @@ export function PosterGrid({
 			style={{
 				...props.style,
 				"--poster-rows": rows,
-				"--guide-left": "calc(var(--poster-margin) - var(--poster-guide-offset))",
-				"--guide-top": "calc(var(--poster-margin) - var(--poster-guide-offset))",
-				"--guide-width": "calc(100% - var(--guide-left) * 2)",
+				"--grid-left": "var(--poster-margin)",
+				"--grid-width": "calc(100% - var(--poster-margin) * 2)",
+				"--col-width": "calc((var(--grid-width) - var(--poster-gap-x) * 3) / 4)",
+				"--guide-left": "calc(var(--poster-margin) - var(--poster-guide-offset-x))",
+				"--guide-right": "calc(100% - var(--poster-margin) + var(--poster-guide-offset-x))",
+				"--guide-top": "calc(var(--poster-margin) - var(--poster-guide-offset-y))",
+				"--guide-bottom": "calc(100% - var(--poster-margin) + var(--poster-guide-offset-y))",
 			} as CSSProperties}
 		>
 			<div className="pointer-events-none absolute inset-0 z-10" aria-hidden="true">
 				{allVerticalLines.map((line) => (
 					<span
 						key={line.key}
-						className={cn("absolute w-px -translate-x-1/2 bg-[var(--poster-guide-color)]", line.isOuter ? "top-0 bottom-0" : "top-[var(--guide-top)] bottom-[var(--guide-top)]")}
+						className={cn("absolute w-px -translate-x-1/2 bg-[var(--poster-guide-color)]", line.isOuter ? "top-0 bottom-0" : "top-[var(--guide-top)] bottom-[var(--poster-margin)]")}
 						style={{ left: line.position }}
 					/>
 				))}
 
-				{allHorizontalLines.map((line) => (
+				{horizontalLines.map((line) => (
 					<span
 						key={line.key}
-						className="absolute left-[var(--guide-left)] right-[var(--guide-left)] h-px -translate-y-1/2 bg-[var(--poster-guide-color)]"
-						style={{ top: line.position }}
+						className="absolute h-px -translate-y-1/2 bg-[var(--poster-guide-color)]"
+						style={{ top: line.position, left: "var(--guide-left)", right: "calc(100% - var(--guide-right))" }}
 					/>
 				))}
 
 				{allVerticalLines.map((verticalLine) =>
-					allHorizontalLines.map((horizontalLine) => (
+					horizontalLines.map((horizontalLine) => (
 						<span
 							key={`cross-${verticalLine.key}-${horizontalLine.key}`}
 							className="absolute size-2.5 -translate-x-1/2 -translate-y-1/2 before:absolute before:left-1/2 before:top-1/2 before:h-px before:w-full before:-translate-x-1/2 before:-translate-y-1/2 before:bg-[var(--poster-cross-color)] after:absolute after:left-1/2 after:top-1/2 after:h-full after:w-px after:-translate-x-1/2 after:-translate-y-1/2 after:bg-[var(--poster-cross-color)]"
-							style={{
-								left: verticalLine.position,
-								top: horizontalLine.position,
-							}}
+							style={{ left: verticalLine.position, top: horizontalLine.position }}
 						/>
 					))
 				)}
