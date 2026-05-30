@@ -6,7 +6,18 @@ export function HeroSection() {
 		<PosterGrid className="before:absolute before:top-0 before:left-0 before:w-full
      before:h-full before:content-[''] before:opacity-[0.05] before:z-10 before:pointer-events-none
      before:bg-[url('https://www.ui-layouts.com/noise.gif')]">
-			<h1 className="col-span-4 self-end font-black uppercase text-[8.1vw] whitespace-nowrap">АЛИНА КАМАЛОВА</h1>
+<h1 className="col-span-3 self-center font-black uppercase text-[6.1vw] whitespace-nowrap">
+	АЛИНА КАМАЛОВА
+</h1>
+
+<a
+	href="https://t.me/lina_kk2"
+	target="_blank"
+	rel="noopener noreferrer"
+	className="col-start-4 row-start-1 flex items-center justify-center border border-[var(--color-text)] text-center font-black uppercase"
+>
+	связаться
+</a>
 
 			<nav className="col-span-2 row-start-2 flex w-full justify-between text-[1vw] font-normal uppercase">
 					<a href="#ui">UX/UI</a>
