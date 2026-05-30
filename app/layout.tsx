@@ -26,11 +26,40 @@ const craftwork = localFont({
 })
 
 export const metadata: Metadata = {
-	title: "Alina Kamalova — Portfolio",
-	description: "Graphic and web design portfolio.",
+	title: "Алина Камалова — Графический и веб-дизайнер",
+	description:
+		"Портфолио Алины Камаловой. UX/UI-дизайн, графический дизайн, рекламные баннеры, иллюстрации и стикеры.",
+
+	openGraph: {
+		title: "Алина Камалова — Графический и веб-дизайнер",
+		description:
+			"UX/UI-дизайн, графический дизайн, рекламные баннеры, иллюстрации и стикеры.",
+		locale: "ru_RU",
+		type: "website",
+		images: [
+			{
+				url: "/images/og-image.jpg",
+				width: 1200,
+				height: 630,
+				alt: "Портфолио Алины Камаловой",
+			},
+		],
+	},
+
+	twitter: {
+		card: "summary_large_image",
+		title: "Алина Камалова — Графический и веб-дизайнер",
+		description:
+			"UX/UI-дизайн, графический дизайн, рекламные баннеры, иллюстрации и стикеры.",
+		images: ["/images/og-image.jpg"],
+	},
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+	children,
+}: {
+	children: React.ReactNode
+}) {
 	return (
 		<html lang="ru">
 			<body className={craftwork.variable}>
