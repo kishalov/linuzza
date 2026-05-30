@@ -51,7 +51,7 @@ export const metadata: Metadata = {
 		title: "Алина Камалова — Графический и веб-дизайнер",
 		description:
 			"UX/UI-дизайн, графический дизайн, рекламные баннеры, иллюстрации и стикеры.",
-		images: ["/images/og-image.jpg"],
+		images: ["/images/og-image.png"],
 	},
 }
 
