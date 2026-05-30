@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="цветок">
+  <path d="M24 110 C8 72 39 27 83 30 C111 4 166 21 174 69 C211 102 185 166 136 167 C102 198 39 178 39 129 C31 124 27 118 24 110 Z" fill="#fff"/>
+  <path d="M100 96 C82 62 118 62 100 96 C134 78 134 114 100 96 C118 130 82 130 100 96 C66 114 66 78 100 96 Z" fill="#FFB6DD" stroke="#3D3936" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M100 96 m-9 0 a9 9 0 1 0 18 0 a9 9 0 1 0 -18 0" fill="none" stroke="#3D3936" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="100" y="178" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#3D3936">цветок</text>
+</svg>

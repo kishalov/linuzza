@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="чай">
+  <path d="M24 110 C8 72 39 27 83 30 C111 4 166 21 174 69 C211 102 185 166 136 167 C102 198 39 178 39 129 C31 124 27 118 24 110 Z" fill="#fff"/>
+  <path d="M61 72 H129 V112 q0 18 -34 18 q-34 0 -34 -18 Z M129 84 h17 q10 0 10 10 q0 10 -10 10 h-17" fill="#C6E7BE" stroke="#3D3936" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M81 92 h36 M86 111 q10 8 20 0" fill="none" stroke="#3D3936" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="100" y="178" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#3D3936">чай</text>
+</svg>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="спс">
+  <path d="M24 110 C8 72 39 27 83 30 C111 4 166 21 174 69 C211 102 185 166 136 167 C102 198 39 178 39 129 C31 124 27 118 24 110 Z" fill="#fff"/>
+  <path d="M64 61 h72 v79 H64 Z M82 61 V45 h36 v16" fill="#F5B3FF" stroke="#3D3936" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M82 91 q8 8 16 0 M108 91 q8 8 16 0 M94 112 q8 8 16 0" fill="none" stroke="#3D3936" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="100" y="178" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#3D3936">спс</text>
+</svg>

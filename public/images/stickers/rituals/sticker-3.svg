@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="книга">
+  <path d="M24 110 C8 72 39 27 83 30 C111 4 166 21 174 69 C211 102 185 166 136 167 C102 198 39 178 39 129 C31 124 27 118 24 110 Z" fill="#fff"/>
+  <path d="M55 59 h42 q13 0 13 13 v73 q0 -13 -13 -13 H55 Z M110 72 q0 -13 13 -13 h22 v73 h-22 q-13 0 -13 13 Z" fill="#AFCBFF" stroke="#3D3936" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M70 80 h22 M70 98 h22 M124 80 h16 M124 98 h16" fill="none" stroke="#3D3936" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="100" y="178" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#3D3936">книга</text>
+</svg>
