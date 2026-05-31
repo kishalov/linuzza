@@ -7,6 +7,7 @@ import { PosterGrid } from "@/components/poster-grid/poster-grid"
 import { useModal } from "@/components/modal/modal-provider"
 import SimpleBar from "simplebar-react"
 import "simplebar-react/dist/simplebar.min.css"
+import type { CSSProperties } from "react"
 
 const slides = [
 	{
@@ -26,17 +27,6 @@ const slides = [
 			"/images/cases/nikol/9.png",
 		],
 	},
-	// {
-	// 	title: "UX/UI",
-	// 	text: "ДИЗАЙН СТРОИТСЯ НА КОНТРАСТЕ СДЕРЖАННОЙ ТИПОГРАФИКИ, КРУПНЫХ ВИЗУАЛОВ И ЧЁТКОЙ СТРУКТУРЫ. ПОЛЬЗОВАТЕЛЬ БЫСТРО СЧИТЫВАЕТ ПРЕИМУЩЕСТВА ПРОЕКТА И ПЕРЕХОДИТ К ЦЕЛЕВОМУ ДЕЙСТВИЮ.",
-	// 	image: "/images/ux-case-2.webp",
-	// 	alt: "UX/UI кейс",
-	// 	caseImages: [
-	// 		"/images/cases/ui-case/1.png",
-	// 		"/images/cases/ui-case/2.png",
-	// 		"/images/cases/ui-case/3.png",
-	// 	],
-	// },
 ]
 
 function CaseModal({
@@ -47,7 +37,7 @@ function CaseModal({
 	images: string[]
 }) {
 	return (
-		<SimpleBar className="case-modal-scroll max-h-[90dvh] w-[min(90vw,1200px)]">
+		<SimpleBar className="case-modal-scroll max-h-[90dvh] w-[min(985w,1200px)]">
 			<div className="bg-[#F3F3F3]">
 				{images.map((image, index) => (
 					<img
@@ -85,10 +75,19 @@ export function UxSection() {
 	}
 
 	return (
-		<PosterGrid id="ui" extraGuides={[{ type: "horizontal", position: "50%" }]} className="before:pointer-events-none before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-full before:bg-[url('https://www.ui-layouts.com/noise.gif')] before:opacity-[0.05] before:content-['']">
-			<h2 className="col-span-1 col-start-2 font-black uppercase text-[8.1vw]">UX/UI</h2>
+		<PosterGrid
+			id="ui"
+			extraGuides={[{ type: "horizontal", position: "50%" }]}
+			style={{
+	"--hero-rows": "0.3fr 1.8fr 1.8fr 0.5fr",
+} as CSSProperties}
+			className="before:pointer-events-none before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-full before:bg-[url('https://www.ui-layouts.com/noise.gif')] before:opacity-[0.05] before:content-['']"
+		>
+			<h2 className="col-span-2 row-start-1 self-center text-[10vw] font-black uppercase md:col-span-3 md:text-[8vw] lg:col-start-2 lg:col-span-1 lg:text-[8.1vw]">
+				UX/UI
+			</h2>
 
-			<div className="relative col-start-2 col-span-3 row-start-2 row-span-3 overflow-hidden">
+			<div className="relative col-span-2 row-start-2 row-span-2 overflow-hidden md:col-span-3 lg:col-start-2 lg:col-span-3 lg:row-start-2 lg:row-span-3">
 				<AnimatePresence mode="wait">
 					<motion.button
 						key={slide.image}
@@ -101,37 +100,47 @@ export function UxSection() {
 						transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
 						aria-label={`Открыть кейс ${slide.title}`}
 					>
-						<Image className="object-cover object-top" src={slide.image} alt={slide.alt} fill sizes="75vw" />
+						<Image
+							className="object-cover object-top"
+							src={slide.image}
+							alt={slide.alt}
+							fill
+							sizes="(max-width: 767px) 100vw, (max-width: 1023px) 100vw, 75vw"
+						/>
 					</motion.button>
 				</AnimatePresence>
 			</div>
 
-<div className="col-start-1 col-span-1 row-start-3 row-span-2 ml-14 flex flex-col">
-	<AnimatePresence mode="wait">
-		<motion.p
-			key={slide.text}
-			className="m-0 text-right text-[0.8vw] font-normal uppercase"
-			initial={{ opacity: 0, y: 12 }}
-			animate={{ opacity: 1, y: 0 }}
-			exit={{ opacity: 0, y: -12 }}
-			transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-		>
-			{slide.text}
-		</motion.p>
-	</AnimatePresence>
+			<div className="col-span-1 row-start-4 flex flex-col md:col-span-1 lg:col-start-1 lg:row-start-3 lg:row-span-2 lg:ml-14">
+				<AnimatePresence mode="wait">
+					<motion.p
+						key={slide.text}
+						className="m-0 text-left text-[2.2vw] font-normal uppercase md:text-[1.4vw] lg:text-right lg:text-[0.8vw]"
+						initial={{ opacity: 0, y: 12 }}
+						animate={{ opacity: 1, y: 0 }}
+						exit={{ opacity: 0, y: -12 }}
+						transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+					>
+						{slide.text}
+					</motion.p>
+				</AnimatePresence>
+			</div>
 
-	<button
-		type="button"
-		onClick={openCase}
-		className="mt-auto flex items-center justify-center border border-[var(--color-text)] py-4 text-center font-black uppercase cursor-pointer"
-	>
-		смотреть кейс
-	</button>
-</div>
+			<button
+				type="button"
+				onClick={openCase}
+				className="col-start-2 row-start-4 flex cursor-pointer items-center justify-center border border-[var(--color-text)] text-center text-[2.5vw] font-black uppercase md:col-start-3 md:text-[1.5vw] lg:col-start-1 lg:row-start-4 lg:ml-14 lg:py-4 lg:text-[1vw]"
+			>
+				смотреть кейс
+			</button>
 
-			<div className="col-start-4 col-span-1 self-end flex gap-3">
-				<button className="cursor-pointer flex size-10 items-center justify-center rounded-full border border-[var(--color-text)] text-sm transition-transform duration-200 hover:scale-105 active:scale-95" type="button" onClick={goPrev} aria-label="Предыдущий слайд">←</button>
-				<button className="cursor-pointer flex size-10 items-center justify-center rounded-full border border-[var(--color-text)] text-sm transition-transform duration-200 hover:scale-105 active:scale-95" type="button" onClick={goNext} aria-label="Следующий слайд">→</button>
+			<div className="hidden lg:col-start-4 lg:col-span-1 lg:flex lg:self-end lg:gap-3">
+				<button className="flex size-10 cursor-pointer items-center justify-center rounded-full border border-[var(--color-text)] text-sm transition-transform duration-200 hover:scale-105 active:scale-95" type="button" onClick={goPrev} aria-label="Предыдущий слайд">
+					←
+				</button>
+				<button className="flex size-10 cursor-pointer items-center justify-center rounded-full border border-[var(--color-text)] text-sm transition-transform duration-200 hover:scale-105 active:scale-95" type="button" onClick={goNext} aria-label="Следующий слайд">
+					→
+				</button>
 			</div>
 		</PosterGrid>
 	)

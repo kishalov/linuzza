@@ -24,11 +24,11 @@ export function PosterGrid({
 	const Component = as
 
 	const verticalLines = [
-		{ key: "outer-left", position: "var(--guide-left)", isOuter: true },
-		{ key: "gap-1", position: "calc(var(--grid-left) + var(--col-width) + var(--poster-gap-x) / 2)", isOuter: false },
-		{ key: "gap-2", position: "calc(var(--grid-left) + var(--col-width) * 2 + var(--poster-gap-x) * 1.5)", isOuter: false },
-		{ key: "gap-3", position: "calc(var(--grid-left) + var(--col-width) * 3 + var(--poster-gap-x) * 2.5)", isOuter: false },
-		{ key: "outer-right", position: "var(--guide-right)", isOuter: true },
+		{ key: "outer-left", position: "var(--guide-left)", isOuter: true, className: "" },
+		{ key: "gap-1", position: "calc(var(--grid-left) + var(--col-width) + var(--poster-gap-x) / 2)", isOuter: false, className: "" },
+		{ key: "gap-2", position: "calc(var(--grid-left) + var(--col-width) * 2 + var(--poster-gap-x) * 1.5)", isOuter: false, className: "hidden md:block" },
+		{ key: "gap-3", position: "calc(var(--grid-left) + var(--col-width) * 3 + var(--poster-gap-x) * 2.5)", isOuter: false, className: "hidden lg:block" },
+		{ key: "outer-right", position: "var(--guide-right)", isOuter: true, className: "" },
 	]
 
 	const horizontalLines = [
@@ -43,19 +43,28 @@ export function PosterGrid({
 		...verticalLines,
 		...extraGuides
 			.filter((guide) => guide.type === "vertical")
-			.map((guide, index) => ({ key: `extra-v-${index}`, position: guide.position, isOuter: false })),
+			.map((guide, index) => ({
+				key: `extra-v-${index}`,
+				position: guide.position,
+				isOuter: false,
+				className: "",
+			})),
 	]
 
 	return (
 		<Component
 			{...props}
-			className={cn("relative mx-auto h-dvh w-full max-w-[var(--page-max-width)] overflow-hidden p-[var(--poster-margin)]", className)}
+			className={cn(
+				"relative mx-auto h-dvh w-full max-w-[var(--page-max-width)] overflow-hidden p-[var(--poster-margin)]",
+				"[--poster-columns:2] md:[--poster-columns:3] lg:[--poster-columns:4]",
+				className,
+			)}
 			style={{
 				...props.style,
 				"--poster-rows": rows,
 				"--grid-left": "var(--poster-margin)",
 				"--grid-width": "calc(100% - var(--poster-margin) * 2)",
-				"--col-width": "calc((var(--grid-width) - var(--poster-gap-x) * 3) / 4)",
+				"--col-width": "calc((var(--grid-width) - var(--poster-gap-x) * (var(--poster-columns) - 1)) / var(--poster-columns))",
 				"--guide-left": "calc(var(--poster-margin) - var(--poster-guide-offset-x))",
 				"--guide-right": "calc(100% - var(--poster-margin) + var(--poster-guide-offset-x))",
 				"--guide-top": "calc(var(--poster-margin) - var(--poster-guide-offset-y))",
@@ -66,7 +75,11 @@ export function PosterGrid({
 				{allVerticalLines.map((line) => (
 					<span
 						key={line.key}
-						className={cn("absolute w-px -translate-x-1/2 bg-[var(--poster-guide-color)]", line.isOuter ? "top-0 bottom-0" : "top-[var(--guide-top)] bottom-[var(--poster-margin)]")}
+						className={cn(
+							"absolute w-px -translate-x-1/2 bg-[var(--poster-guide-color)]",
+							line.isOuter ? "top-0 bottom-0" : "top-[var(--guide-top)] bottom-[var(--poster-margin)]",
+							line.className,
+						)}
 						style={{ left: line.position }}
 					/>
 				))}
@@ -75,7 +88,11 @@ export function PosterGrid({
 					<span
 						key={line.key}
 						className="absolute h-px -translate-y-1/2 bg-[var(--poster-guide-color)]"
-						style={{ top: line.position, left: "var(--guide-left)", right: "calc(100% - var(--guide-right))" }}
+						style={{
+							top: line.position,
+							left: "var(--guide-left)",
+							right: "calc(100% - var(--guide-right))",
+						}}
 					/>
 				))}
 
@@ -83,19 +100,24 @@ export function PosterGrid({
 					horizontalLines.map((horizontalLine) => (
 						<span
 							key={`cross-${verticalLine.key}-${horizontalLine.key}`}
-							className="absolute size-2.5 -translate-x-1/2 -translate-y-1/2 before:absolute before:left-1/2 before:top-1/2 before:h-px before:w-full before:-translate-x-1/2 before:-translate-y-1/2 before:bg-[var(--poster-cross-color)] after:absolute after:left-1/2 after:top-1/2 after:h-full after:w-px after:-translate-x-1/2 after:-translate-y-1/2 after:bg-[var(--poster-cross-color)]"
+							className={cn(
+								"absolute size-2.5 -translate-x-1/2 -translate-y-1/2 before:absolute before:left-1/2 before:top-1/2 before:h-px before:w-full before:-translate-x-1/2 before:-translate-y-1/2 before:bg-[var(--poster-cross-color)] after:absolute after:left-1/2 after:top-1/2 after:h-full after:w-px after:-translate-x-1/2 after:-translate-y-1/2 after:bg-[var(--poster-cross-color)]",
+								verticalLine.className,
+							)}
 							style={{ left: verticalLine.position, top: horizontalLine.position }}
 						/>
-					))
+					)),
 				)}
 			</div>
 
-			<div
-				className="relative z-20 grid h-full min-h-0 grid-cols-4 gap-x-[var(--poster-gap-x)] gap-y-[var(--poster-gap-y)] overflow-hidden"
-				style={{ gridTemplateRows: "repeat(var(--poster-rows), minmax(0, 1fr))" } as CSSProperties}
-			>
-				{children}
-			</div>
+<div
+	className="relative z-20 grid h-full min-h-0 grid-cols-[repeat(var(--poster-columns),minmax(0,1fr))] gap-x-[var(--poster-gap-x)] gap-y-[var(--poster-gap-y)] overflow-hidden"
+	style={{
+		gridTemplateRows: "var(--hero-rows, repeat(var(--poster-rows), minmax(0, 1fr)))",
+	} as CSSProperties}
+>
+	{children}
+</div>
 		</Component>
 	)
 }
