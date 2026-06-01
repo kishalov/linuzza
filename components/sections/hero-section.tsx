@@ -33,7 +33,7 @@ export function HeroSection() {
 			<div className="relative col-span-2 row-start-3 row-span-1 md:col-span-3 lg:col-start-4 lg:col-span-1 lg:row-start-2 lg:row-span-3">
 				<Image
 					className="object-cover object-center"
-					src="/images/avatar.png"
+					src="/images/avatar.webp"
 					alt="Алина Камалова"
 					fill
 					priority
