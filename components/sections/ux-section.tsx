@@ -37,7 +37,7 @@ function CaseModal({
 	images: string[]
 }) {
 	return (
-		<SimpleBar className="case-modal-scroll max-h-[90dvh] w-[min(985w,1200px)]">
+		<SimpleBar className="case-modal-scroll max-h-[90dvh] w-[min(85vw,1200px)]">
 			<div className="bg-[#F3F3F3]">
 				{images.map((image, index) => (
 					<img
